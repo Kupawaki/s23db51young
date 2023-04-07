@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  -
+    let rows = parseInt(query.rows)
+    let cols = parseInt(query.cols)
+
+    function getNum(num1, num2)
+    {
+      if((num1 + 1 - num2) < 0)
+      {
+        return 0
+      }
+      else
+      {
+        return num1 + 1 - num2
+      }
+    }
+
+  unless(Number.isInteger(rows) && Number.isInteger(cols))
+    p We only accept numbers here, sir.
+  unless((rows < 11 && rows > 0) && (cols < 11 && cols > 0))
+    p Those numbers are either too big or too small, sir.
+  else
+    p All is well in the halls of men
+    table#outer
+      - for(let i=0; i<rows; i++) {
+          tr#middle
+            - for(let j=0; j<cols; j++) {
+                td= getNum(j,i)
+            - }
+      - }
+  

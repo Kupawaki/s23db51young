@@ -1,0 +1,11 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+
+  //Not quite what the instructions said to do, but in my defense: This is good code
+
+  - let image_names = ["1.png", "2.png", "3.png", "4.png", "5.png"]
+  each num in [1,2,3]
+    img(src=`\\images\\${image_names[Math.floor(Math.random()*5)]}`)

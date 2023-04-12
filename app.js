@@ -4,11 +4,40 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+require('dotenv').config();
+const connectionString = process.env.MONGO_CON
+mongoose = require('mongoose');
+mongoose.connect(connectionString, {useNewUrlParser:true, useUnifiedTopology:true});
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error'));
+//db.once("open", fucntion(){console.log()});
+
+var kabab = require('./models/kabab')
+
+async function recreateDB(){
+  await kabab.deleteMany();
+
+  let instance1 = new kabab({kabab_type:"indian", kabab_length:5, kabab_lethality:"Safe"});
+  let instance2 = new kabab({kabab_type:"american", kabab_length:10, kabab_lethality:"Good"});
+  let instance3 = new kabab({kabab_type:"european", kabab_length:3, kabab_lethality:"Deadly"});
+  instance1.save()
+  instance2.save()
+  instance3.save()
+}
+
+let reseed = true;
+if(reseed) 
+{
+  recreateDB();
+}
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var kababRouter = require('./routes/kabab');
 var boardRouter = require('./routes/board');
 var selectorRouter = require('./routes/selector');
+var resourceRouter = require('./routes/resource');
 
 var app = express();
 
@@ -27,6 +56,7 @@ app.use('/users', usersRouter);
 app.use('/kabab', kababRouter);
 app.use('/board', boardRouter);
 app.use('/selector', selectorRouter);
+app.use('/resource', resourceRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

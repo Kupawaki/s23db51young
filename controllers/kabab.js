@@ -1,6 +1,6 @@
 var kabab = require('../models/kabab');
 
-// List of all Costumes
+// Return a list of all kabab objects
 exports.kabab_list = async function(req, res) 
 {
     try
@@ -15,10 +15,21 @@ exports.kabab_list = async function(req, res)
     }
 };
 
-// for a specific Costume.
-exports.kabab_detail = function(req, res) {
-res.send('NOT IMPLEMENTED: Costume detail: ' + req.params.id);
+// Return a kabab object by its ID
+exports.kabab_detail = async function(req, res) 
+{
+    try 
+    {
+        result = await kabab.findById(req.params.id)
+        res.send(result)
+    } 
+    catch (error) 
+    {
+        res.status(500)
+        res.send(`{"error": document for id ${req.params.id} not found`);
+    }
 };
+
 // Handle Costume create on POST.
 exports.kabab_create_post = function(req, res) {
 res.send('NOT IMPLEMENTED: Costume create POST');
@@ -27,10 +38,46 @@ res.send('NOT IMPLEMENTED: Costume create POST');
 exports.kabab_delete = function(req, res) {
 res.send('NOT IMPLEMENTED: Costume delete DELETE ' + req.params.id);
 };
+
+
 // Handle Costume update form on PUT.
-exports.kabab_update_put = function(req, res) {
-res.send('NOT IMPLEMENTED: Costume update PUT' + req.params.id);
+exports.kabab_update_put = async function(req, res) 
+{
+    console.log(`update on id ${req.params.id} with body ${JSON.stringify(req.body)}`)
+    try 
+    {
+        let toUpdate = await kabab.findById(req.params.id)
+        
+        if(req.body.kabab_style)
+            toUpdate.kabab_style = req.body.kabab_style;
+        if(req.body.kabab_length)  
+            toUpdate.kabab_length = req.body.kabab_length;
+        if(req.body.kabab_lethality) 
+            toUpdate.kabab_lethality = req.body.kabab_lethality;
+        
+        let result = await toUpdate.save();
+        console.log("Sucess " + result)
+        res.send(result)
+    } 
+    catch (err) 
+    {
+        res.status(500)
+        res.send(`{"error": ${err}: Update for id ${req.params.id}failed`);
+    }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // VIEWS
 // Handle a show all view

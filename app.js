@@ -15,15 +15,17 @@ db.on('error', console.error.bind(console, 'MongoDB connection error'));
 
 var kabab = require('./models/kabab')
 
-async function recreateDB(){
+async function recreateDB()
+{
   await kabab.deleteMany();
 
   let instance1 = new kabab({kabab_style:"indian", kabab_length:5, kabab_lethality:"Safe"});
   let instance2 = new kabab({kabab_style:"american", kabab_length:10, kabab_lethality:"Good"});
   let instance3 = new kabab({kabab_style:"european", kabab_length:3, kabab_lethality:"Deadly"});
-  instance1.save()
-  instance2.save()
-  instance3.save()
+  
+  instance1.save().then(doc=>{console.log("First Object Saved")});
+  instance2.save().then(doc=>{console.log("Second Object Saved")});
+  instance3.save().then(doc=>{console.log("Third Object Saved")});
 }
 
 let reseed = true;

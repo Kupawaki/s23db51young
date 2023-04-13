@@ -59,7 +59,7 @@ exports.kabab_create_post = async function(req, res) {
     document.kabab_lethality = req.body.kabab_lethality;
     try
     {
-        let result = await document.save();
+        let result = await document.save().then(doc=>{console.log("New Object Saved")});
         res.send(result);
     }
     catch(err)

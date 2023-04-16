@@ -34,10 +34,23 @@ exports.kabab_detail = async function(req, res)
 exports.kabab_create_post = function(req, res) {
 res.send('NOT IMPLEMENTED: Costume create POST');
 };
-// Handle Costume delete form on DELETE.
-exports.kabab_delete = function(req, res) {
-res.send('NOT IMPLEMENTED: Costume delete DELETE ' + req.params.id);
+
+// Delete a kabab object
+exports.kabab_delete = async function(req, res) 
+{
+    try 
+    {
+        result = await kabab.findByIdAndDelete(req.params.id)
+        console.log("Removed " + result)
+        res.send(result)
+    } 
+    catch (err) 
+    {
+        res.status(500)
+        res.send(`{"error": Error deleting ${err}}`);
+    }
 };
+    
 
 
 // Handle Costume update form on PUT.

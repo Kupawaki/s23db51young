@@ -11,9 +11,14 @@ mongoose.connect(connectionString, {useNewUrlParser:true, useUnifiedTopology:tru
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error'));
-//db.once("open", fucntion(){console.log()});
 
 var kabab = require('./models/kabab')
+
+let reseed = true;
+if(reseed) 
+{
+  recreateDB();
+}
 
 async function recreateDB()
 {
@@ -26,12 +31,6 @@ async function recreateDB()
   instance1.save().then(doc=>{console.log("First Object Saved")});
   instance2.save().then(doc=>{console.log("Second Object Saved")});
   instance3.save().then(doc=>{console.log("Third Object Saved")});
-}
-
-let reseed = true;
-if(reseed) 
-{
-  recreateDB();
 }
 
 var indexRouter = require('./routes/index');

@@ -1,0 +1,44 @@
+extends layout
+
+block content
+    h1= title
+    - let kabab_id = toShow._id
+    - let kabab_style = toShow.kabab_style
+    - let kabab_length = toShow.kabab_length
+    - let kabab_lethality = toShow.kabab_lethality
+
+    div.row(class='mb-2')
+        div.mr-1 ID is
+        div #{kabab_id}
+
+    - let actionid = "/resource/kabab/" + kabab_id
+    
+    form(id='KababForm', action= actionid, method="PUT")
+        div.form-group
+            label.kababAttr(for='kabab_style') Kabab Style
+            input#kabab_style(type='text', name='kabab_style', value= kabab_style )
+        div.form-group
+            label.kababAttr(for='kabab_length') Kabab Length
+            input#kabab_length(type='number', name='kabab_length', value= kabab_length )
+        div.form-group
+            label.kababAttr(for='kabab_lethality') Kabab Lethality
+            input#kabab_lethality(type='text', name='kabab_lethality', value= kabab_lethality )
+        input(type="submit")
+    
+    script.
+        document.forms['KababForm'].addEventListener('submit', (event) => {
+            event.preventDefault();
+            // TODO do something here to show user that form is being submitted
+            fetch(event.target.action, {
+                method: 'PUT',
+                body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+            }).then((resp) => {
+                return resp.json(); // or resp.text() or whatever the server sends
+            }).then((body) => {
+                alert("Update succeded")
+                // TODO handle body
+            }).catch((error) => {
+                // TODO handle error
+                alert("Update failed " + error )
+            });
+        });

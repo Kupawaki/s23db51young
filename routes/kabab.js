@@ -1,20 +1,18 @@
-//var express = require('express');
-//var router = express.Router();
-
-/* GET home page. */
-//router.get('/', function(req, res, next) {
-//  res.render('kabab', { title: 'Search Results Kabab' });
-//});
-
-//module.exports = router;
-
-
-
 var express = require('express');
-const kabab_controlers= require('../controllers/kabab');
+const kabab_controllers= require('../controllers/kabab');
 var router = express.Router();
 
-/* GET costumes */
-router.get('/', kabab_controlers.kabab_view_all_Page );
+/* GET kabab */
+router.get('/', kabab_controllers.kabab_view_all_Page );
+// GET detail page
+router.get('/detail', kabab_controllers.kabab_view_one_Page);
+// GET create page
+router.get('/create', kabab_controllers.kabab_create_Page);
+/* GET update page */
+router.get('/update', kabab_controllers.kabab_update_Page);
+/* GET delete page */
+router.get('/delete', kabab_controllers.kabab_delete_Page);
+
+
 module.exports = router;
 

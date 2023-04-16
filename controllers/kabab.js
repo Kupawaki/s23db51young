@@ -79,7 +79,9 @@ exports.kabab_update_put = async function(req, res)
     }
 };
 
-// Handle a show one view with id specified by query
+//---------------------------------------------------------------------------------------------------------
+//BEGIN Page View Controllers------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------
 exports.kabab_view_one_Page = async function(req, res) 
 {
     console.log("/detail")
@@ -95,6 +97,53 @@ exports.kabab_view_one_Page = async function(req, res)
     }
 };
 
+// No body, no in path parameter, no query.
+// Does not need to be async
+exports.kabab_create_Page = function(req, res) 
+{
+    console.log("/create")
+    try
+    {
+        res.render('kababcreate', { title: 'Kabab Create'});
+    }
+    catch(err)
+    {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+exports.kabab_update_Page = async function(req, res) 
+{
+    console.log("/update")
+    try{
+        let result = await kabab.findById(req.query.id)
+        res.render('kababupdate', { title: 'Kabab Update', toShow: result });
+    }
+    catch(err)
+    {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
+exports.kabab_delete_Page = async function(req, res) 
+{
+    console.log("/delete")
+    try
+    {
+        result = await kabab.findById(req.query.id)
+        res.render('kababdelete', { title: 'Kabab Delete', toShow:result });
+    }
+    catch(err)
+    {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+//---------------------------------------------------------------------------------------------------------
+//END------------------------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------------------------
 
 
 

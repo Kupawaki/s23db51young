@@ -1,0 +1,35 @@
+extends layout
+
+block content
+    h1= title
+    form(id='KababForm', action="/resource/kabab", method="POST")
+        div.form-group
+            label.kababAttr(for='kabab_style') Kabab Style
+            input#kabab_style(type='text', name='kabab_style')
+        div.form-group
+            label.kababAttr(for='kabab_length') Kabab Length
+            input#kabab_length(type='number', name='kabab_length')
+        div.form-group
+            label.kababAttr(for='kabab_lethality') Kabab Lethality
+            input#kabab_lethality(type='text', name='kabab_lethality')
+        input(type="submit")
+
+    script.
+        document.forms['KababForm'].addEventListener('submit', (event) => {
+            console.log("/create - submission attempt")
+            event.preventDefault();
+            fetch(event.target.action, {
+                method: 'POST',
+                body: new URLSearchParams(new FormData(event.target))
+                console.log("/create - fetch")
+            }).then((resp) => {
+                console.log("/create - then 1")
+                return resp.json();
+            }).then((body) => {
+                console.log("/create - then 2")
+                alert("Save succeded")
+            }).catch((error) => {
+                console.log("/create - catch")
+                alert("Save failed " + error )
+            });
+        });

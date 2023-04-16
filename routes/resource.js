@@ -13,15 +13,8 @@ router.post('/kabab', kabab_controller.kabab_create_post);
 router.delete('/kabab/:id', kabab_controller.kabab_delete);
 // PUT request to update Costume.
 router.put('/kabab/:id', kabab_controller.kabab_update_put);
-
 // This runs when you recieve a GET request for a kabab ID.
 router.get('/kabab/:id', kabab_controller.kabab_detail);
-
 // GET request for list of all Costume items.
 router.get('/kabab', kabab_controller.kabab_list);
-
-/* GET detail costume page */
-router.get('/detail', kabab_controller.kabab_view_one_Page);
-
-
 module.exports = router;

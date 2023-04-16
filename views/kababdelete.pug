@@ -1,0 +1,52 @@
+extends layout
+block content
+    h1= title
+    
+    if (toShow == null)
+        h2 No instance to delete
+    else
+        - let kababid = toShow._id
+        - let kabab_style = toShow.kabab_style
+        - let kabab_length = toShow.kabab_length
+        - let kabab_lethality = toShow.kabab_lethality
+        - let actionid = "/resource/kabab/" + kababid
+        script let actionid = "#{actionid}"
+
+        div
+            div.row
+                div(class='kababAttr mr-3') Kabab ID is:
+                div #{kababid}
+            div.row
+                div(class='kababAttr mr-3') Kabab Style is:
+                div #{kabab_style}
+            div.row
+                div(class='kababAttr mr-3') Kabab Length is:
+                div #{kabab_length}
+            div.row
+                div(class='kababAttr mr-3') Kabab Lethality is:
+                div #{kabab_lethality}
+
+        button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+        button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+
+    script.
+        function cancel() 
+        {
+            window.location.href='/kabab'
+        }
+    
+    script.
+        function deleteOnid() 
+        {
+            console.log("starting delete")
+            fetch(actionid, {
+                method: 'DELETE'
+            }).then((resp) => {
+                return resp.json();
+            }).then((body) => {
+                alert("Delete succeded")
+                window.location.href='/kabab'
+            }).catch((error) => {
+                alert("Delete failed " + error )
+            });
+        }

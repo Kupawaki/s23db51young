@@ -79,6 +79,22 @@ exports.kabab_update_put = async function(req, res)
     }
 };
 
+// Handle a show one view with id specified by query
+exports.kabab_view_one_Page = async function(req, res) 
+{
+    console.log("/detail")
+    try
+    {
+        result = await kabab.findById( req.query.id)
+        res.render('kababdetail',{title: 'Kabab Detail', toShow: result });
+    }
+    catch(err)
+    {
+        res.status(500)
+        res.send(`{'error': '${err}'}`);
+    }
+};
+
 
 
 

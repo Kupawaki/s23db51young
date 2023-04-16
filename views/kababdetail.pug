@@ -1,0 +1,24 @@
+extends layout
+
+block content
+
+    - 
+        let kababid = toShow._id
+        let kabab_style = toShow.kabab_style
+        let kabab_length = toShow.kabab_length
+        let kabab_lethality = toShow.kabab_lethality
+
+    h1= title
+    div
+        div.row
+            div(class='kababAttr mr-3') Kabab ID is:
+            div #{kababid}
+        div.row
+            div(class='kababAttr mr-3') Kabab Style is:
+            div #{kabab_style}
+        div.row
+            div(class='kababAttr mr-3') Kabab Length is:
+            div #{kabab_length}
+        div.row
+            div(class='kababAttr mr-3') Kabab Lethality is:
+            div #{kabab_lethality}

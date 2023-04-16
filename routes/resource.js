@@ -19,4 +19,9 @@ router.get('/kabab/:id', kabab_controller.kabab_detail);
 
 // GET request for list of all Costume items.
 router.get('/kabab', kabab_controller.kabab_list);
+
+/* GET detail costume page */
+router.get('/detail', kabab_controller.kabab_view_one_Page);
+
+
 module.exports = router;

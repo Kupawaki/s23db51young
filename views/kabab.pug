@@ -4,25 +4,17 @@ block content
   h1= title
   p Welcome to #{title}
 
-  -
-    //class kabab{
-    //  constructor(kabab_style, kabab_length, kabab_lethality){
-    //    this.kabab_style = kabab_style;
-    //    this.kabab_length = kabab_length;
-    //    this.kabab_lethality = kabab_lethality;
-    //  }
-    //}
-    //let results = []
-    
-    //let kabab1 = new kabab("American", 3, "Safe");
-    //let kabab2 = new kabab("Asian", 4, "Dangerous");
-    //let kabab3 = new kabab("European", 5, "Lethal");
-
-    //results = [kabab1, kabab2, kabab3];
-
-    let items = results
+  - let items = results
 
   div(class="container-fluid")
-    div(class="row")
+    div(class="row m-1")
       each item in items
-        div(class="col-sm-2") Kabab Style: #{item.kabab_style} <br> Kabab Length: #{item.kabab_length} <br> Kabab Lethality: #{item.kabab_lethality}
+        - let destination = `dispatch(\"/kabab/update?id=${item._id}\")`
+        div(class="col-sm-2") Kabab Style: #{item.kabab_style} <br> Kabab Length: #{item.kabab_length} <br> Kabab Lethality: #{item.kabab_lethality} <br>
+          button.btn( class="btn-primary ml-1", onclick= destination) Update
+  
+  script.
+    function dispatch(path)
+    {
+      window.location.href=path
+    }

@@ -49,16 +49,28 @@ router.post('/register', function(req, res)
 
 router.get('/login', function(req, res) 
 {
-  res.render('login', { title: 'Costume App Login', user : req.user });
+  res.render('login', { title: 'Kabab App Login', user : req.user });
 });
 
 router.post('/login', passport.authenticate('local'), function(req, res) 
 {
-  if(req.session.toReturn)
+  // if(req.session.toReturn)
+  // {
+  //   console.log("Send it back to " + req.session.toReturn)
+  //   res.redirect(req.session.toReturn);
+  // }
+
+  if(req.session.returnTo)
   {
-    console.log("Send it back to " + req.session.toReturn)
-    res.redirect(req.session.toReturn);
+    res.redirect(req.session.returnTo);
   }
+  res.redirect('/')
+});
+
+router.get('/logout', function(req, res)
+{
+  console.log("logout");
+  res.render('index', {title:"Kabab App Login", user:""})
 });
   
 

@@ -5,13 +5,20 @@ block content
   p Welcome to #{title}
 
   - let items = results
+  - let destCreate = `dispatch(\"/kabab/create\")`
+
+  button.btn(class="btn-primary m1-1", onclick=destCreate) Create a Kabab
 
   div(class="container-fluid")
     div(class="row m-1")
       each item in items
         - let destination = `dispatch(\"/kabab/update?id=${item._id}\")`
+        - let destDetail = `dispatch(\"/kabab/detail?id=${item._id}\")`
+        - let destDelete = `dispatch(\"/kabab/delete?id=${item._id}\")`
         div(class="col-sm-2") Kabab Style: #{item.kabab_style} <br> Kabab Length: #{item.kabab_length} <br> Kabab Lethality: #{item.kabab_lethality} <br>
-          button.btn( class="btn-primary ml-1", onclick= destination) Update
+          button.btn( class="btn-primary ml-1", onclick= destination) Update <br>
+          button.btn(class="btn-primary m1-1", onclick= destDetail) Detail <br>
+          button.btn(class="btn-primary m1-1", onclick= destDelete) Delete
   
   script.
     function dispatch(path)
